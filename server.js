@@ -26,7 +26,7 @@ app.get('/auth/status', (req, res) => {
 
     res.json({message: "Here is user data", user: {userId:777, firstName:"Relando", lastName: "Vrapi", age: 29}})
 })
-
-app.listen(8080, () => {
-    console.log("Server started successfully on port 8080")
+const PORT = process.env.PORT || 3002
+app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Server started successfully on port ${PORT}`)
 })
