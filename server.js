@@ -26,7 +26,9 @@ app.get('/auth/status', (req, res) => {
 
     res.json({message: "Here is user data", user: {userId:777, firstName:"Relando", lastName: "Vrapi", age: 29}})
 })
-const PORT = process.env.PORT || 3002
-app.listen(PORT, '0.0.0.0', () => {
-    console.log(`Server started successfully on port ${PORT}`)
-})
+const PORT = process.env.PORT || 3000;  // Use 3000 by default if not set
+const HOST = '0.0.0.0';
+app.listen(PORT, HOST, () => {
+    console.log(`Server started successfully on ${HOST}:${PORT}`);
+});
+
