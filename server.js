@@ -23,8 +23,8 @@ app.post("/auth/login", (req, res) => {
     if(!body) return res.status(401).json({message: "No login data sent"})
     const foundUser = db.users.find(u => u.username === body.username.toLowerCase())
     if(!foundUser) return res.status(401).json({message: `User "${body.username}" does not exist`})
-    const res = bcrypt.compareSync(body.password, foundUser.password)
-    if(!res) return res.status(401).json({message: `Credentials are incorrect`})
+    const result = bcrypt.compareSync(body.password, foundUser.password)
+    if(!result) return res.status(401).json({message: `Credentials are incorrect`})
     try {
         delete foundUser.password
         const at = jwt.sign({ userId: foundUser.userId }, AT_SECRET, { algorithm: 'RS256', expiresIn: '1hr' })
