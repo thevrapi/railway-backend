@@ -35,7 +35,7 @@ app.post("/auth/login", (req, res) => {
 })
 
 app.post("/auth/register", (req, res) => {
-    const body = req.data
+    const body = req.body
     if(!body) return res.status(401).json({message: "No user data sent"})
     const foundUser = db.users.find(u => (u.username === body.username.trim().toLowerCase()) || (u.email === body.email.trim().toLowerCase()))
     if(foundUser) return res.status(409).json({message: `User "${body.username} or ${body.email}" already exist`})
