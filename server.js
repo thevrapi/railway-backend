@@ -23,6 +23,7 @@ app.post("/auth/login", (req, res) => {
     if(!body) return res.status(401).json({message: "No login data sent"})
     const foundUser = db.users.find(u => u.username === body.username.toLowerCase())
     if(!foundUser) return res.status(401).json({message: `User "${body.username}" does not exist`})
+    console.log(body.password, foundUser.password)
     const result = bcrypt.compareSync(body.password, foundUser.password)
     if(!result) return res.status(401).json({message: `Credentials are incorrect`})
     try {
