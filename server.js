@@ -37,9 +37,11 @@ app.post("/auth/login", (req, res) => {
 app.post("/auth/register", (req, res) => {
     const body = req.data
     if(!body) return res.status(401).json({message: "No user data sent"})
-    const foundUser = db.users.find(u => (u.username === body.username.toLowerCase()) || (u.email === body.email.toLowerCase()))
+    const foundUser = db.users.find(u => (u.username === body.username.trim().toLowerCase()) || (u.email === body.email.trim().toLowerCase()))
     if(foundUser) return res.status(409).json({message: `User "${body.username} or ${body.email}" already exist`})
     body.userId = Date.now()
+    body.username = body.username.trim().toLowerCase()
+    body.email = body.email.trim().toLowerCase()
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(body.password, salt);
     body.password = salt
