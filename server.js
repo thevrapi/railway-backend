@@ -27,8 +27,8 @@ app.post("/auth/login", (req, res) => {
     const result = bcrypt.compareSync(body.password, foundUser.password)
     if(!result) return res.status(401).json({message: `Credentials are incorrect`})
     try {
-        const at = jwt.sign({ userId: foundUser.userId }, AT_SECRET, { algorithm: 'RS256', expiresIn: '1hr' })
-        const rt = jwt.sign({ userId: foundUser.userId }, RT_SECRET, { algorithm: 'RS256', expiresIn: '1hr' })
+        const at = jwt.sign({ userId: foundUser.userId }, AT_SECRET, { expiresIn: '1hr' })
+        const rt = jwt.sign({ userId: foundUser.userId }, RT_SECRET, { expiresIn: '1hr' })
         res.json({message:"Login successful", accessToken: at, refreshToken: rt, user: {...foundUser, password:undefined}})
     }
     catch(error){
