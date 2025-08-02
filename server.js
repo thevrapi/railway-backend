@@ -44,7 +44,7 @@ app.post("/auth/register", (req, res) => {
     body.email = body.email.trim().toLowerCase()
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(body.password, salt);
-    body.password = salt
+    body.password = hash
     db.users.push(body)
     res.json({message:"Registration successful", user: {...body, password:undefined}})
 })
