@@ -31,7 +31,10 @@ app.post("/auth/login", (req, res) => {
         const rt = jwt.sign({ userId: foundUser.userId }, RT_SECRET, { algorithm: 'RS256', expiresIn: '1hr' })
         res.json({message:"Login successful", accessToken: at, refreshToken: rt, user: {...foundUser, password:undefined}})
     }
-    catch(error){return res.status(500).json({message: "Token failed to generate"})}
+    catch(error){
+        console.log(error)
+        return res.status(500).json({message: "Token failed to generate"})
+    }
 })
 
 app.post("/auth/register", (req, res) => {
